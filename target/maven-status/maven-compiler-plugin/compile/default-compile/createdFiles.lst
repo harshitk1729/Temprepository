@@ -1,0 +1,8 @@
+com\example\demo\DemoApplication.class
+com\example\demo\entity\Steps.class
+com\example\demo\controller\DataController.class
+com\example\demo\entity\Component.class
+com\example\demo\entity\Data.class
+com\example\demo\repository\ComponentStepsRepository.class
+com\example\demo\repository\StepsRepository.class
+com\example\demo\repository\ComponentRepository.class

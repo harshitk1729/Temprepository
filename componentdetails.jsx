@@ -93,60 +93,55 @@ function ComponentDetails() {
   const ComponentTab = ({ component }) => (
     <table className="details-table">
       <tbody>
-        
         <tr>
           <th>Name</th>
-          <td>{component.name}</td>
+          <td>{component?.name || 'N/A'}</td>
         </tr>
         
         <tr>
           <th>Description</th>
-          <td>{component.description}</td>
+          <td>{component?.description || 'N/A'}</td>
         </tr>
         <tr>
           <th>Owner</th>
-          <td>{componentDetails.owner.firstName + ' ' + componentDetails.owner.lastName}</td>
+          <td>{componentDetails?.owner?.firstName && componentDetails?.owner?.lastName ? 
+            `${componentDetails.owner.firstName} ${componentDetails.owner.lastName}` : 'N/A'}</td>
         </tr>
         <tr>
           <th>SVN</th>
-          <td>{component.componentSvns}</td>
+          <td>{component?.componentSvns || 'N/A'}</td>
         </tr>
         <tr>
-          <th>Category </th>
-          <td>{componentDetails.category.categoryname}</td>
+          <th>Category</th>
+          <td>{componentDetails?.category?.categoryname || 'N/A'}</td>
         </tr>
-        
-        
-        
         <tr>
-          
           <th>Active</th>
-          <td>{component.active}</td>
+          <td>{component?.active || 'N/A'}</td>
         </tr>
-        
         <tr>
           <th>Tags</th>
-          <td>{component.tags}</td>
+          <td>{component?.tags || 'N/A'}</td>
         </tr>
         <tr>
           <th>Type</th>
-          <td>{componentDetails.componentType.categoryname}</td>
+          <td>{componentDetails?.componentType?.categoryname || 'N/A'}</td>
         </tr>
         <tr>
           <th>Template</th>
-          <td>{componentDetails.pcdTemplate.categoryname}</td>
+          <td>{componentDetails?.pcdTemplate?.categoryname || 'N/A'}</td>
         </tr>
         <tr>
           <th>Template Description</th>
-          <td>{componentDetails.pcdTemplate.description}</td>
+          <td>{componentDetails?.pcdTemplate?.description || 'N/A'}</td>
         </tr>
         <tr>
           <th>Usage</th>
-          <td>{componentDetails.usage.categoryname}</td>
+          <td>{componentDetails?.usage?.categoryname || 'N/A'}</td>
         </tr>
         <tr>
           <th>Comments</th>
-          <td>{component.comments}</td>
+          <td>{component?.comments || 'N/A'}</td>
         </tr>
         
       </tbody>
@@ -375,101 +370,94 @@ function ComponentDetails() {
             ← Back to Search
           </button>
           
-          <h1>{componentDetails.name || componentDetails?.component?.name || 'Component Details'}</h1>
+          <h1>{componentDetails.component?.name || componentDetails.name || 'Component Details'}</h1>
           
-          {componentDetails.component || componentDetails.name ? (
-            <div className="details-container">
-              <div className="tabs">
-                <button 
-                  className={`tab-button ${activeTab === 'component' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('component')}
-                >
-                  Component Details
-                </button>
-                
-                {componentDetails.masks && componentDetails.masks.length > 0 && (
-                  <button 
-                    className={`tab-button ${activeTab === 'masks' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('masks')}
-                  >
-                    Masks ({componentDetails.masks.length})
-                  </button>
-                )}
-                
-                {componentDetails.electricalSpecs && componentDetails.electricalSpecs.length > 0 && (
-                  <button 
-                    className={`tab-button ${activeTab === 'electrical' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('electrical')}
-                  >
-                    Electrical Specs ({componentDetails.electricalSpecs.length})
-                  </button>
-                )}
-                
-                {componentDetails.cdsFigs && componentDetails.cdsFigs.length > 0 && (
-                  <button 
-                    className={`tab-button ${activeTab === 'cdsfigs' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('cdsfigs')}
-                  >
-                    CDS Figures ({componentDetails.cdsFigs.length})
-                  </button>
-                )}
-                
-                {componentDetails.drs && componentDetails.drs.length > 0 && (
-                  <button 
-                    className={`tab-button ${activeTab === 'drs' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('drs')}
-                  >
-                    Design Rules ({componentDetails.drs.length})
-                  </button>
-                )}
-              </div>
+          <div className="details-container">
+            <div className="tabs">
+              <button 
+                className={`tab-button ${activeTab === 'component' ? 'active' : ''}`}
+                onClick={() => setActiveTab('component')}
+              >
+                Component Details
+              </button>
               
-              <div className="tab-content">
-                {activeTab === 'component' && (
-                  <>
-                    <h2>Component Details</h2>
-                    <ComponentTab component={componentDetails.component || componentDetails} />
-                  </>
-                )}
-                
-                {activeTab === 'masks' && componentDetails.masks && (
-                  <>
-                    <h2>Mask Details</h2>
-                    <MasksTab masks={componentDetails.masks} />
-                  </>
-                )}
-                
-                {activeTab === 'electrical' && componentDetails.electricalSpecs && (
-                  <>
-                    <h2>Electrical Specifications</h2>
-                    <ElectricalSpecsTab 
-                      specs={componentDetails.electricalSpecs}
-                     
-                    />
-                  </>
-                )}
-                
-                {activeTab === 'cdsfigs' && componentDetails.cdsFigs && (
-                  <>
-                    <h2>CDS Figures</h2>
-                    <CdsFigsTab figs={componentDetails.cdsFigs} />
-                  </>
-                )}
-                
-                {activeTab === 'drs' && componentDetails.drs && (
-                  <>
-                    <h2>Design Rules</h2>
-                    <DrsTab drs={componentDetails.drs} />
-                  </>
-                )}
-              </div>
+              {componentDetails.masks && componentDetails.masks.length > 0 && (
+                <button 
+                  className={`tab-button ${activeTab === 'masks' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('masks')}
+                >
+                  Masks ({componentDetails.masks.length})
+                </button>
+              )}
+              
+              {componentDetails.electricalSpecs && componentDetails.electricalSpecs.length > 0 && (
+                <button 
+                  className={`tab-button ${activeTab === 'electrical' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('electrical')}
+                >
+                  Electrical Specs ({componentDetails.electricalSpecs.length})
+                </button>
+              )}
+              
+              {componentDetails.cdsFigs && componentDetails.cdsFigs.length > 0 && (
+                <button 
+                  className={`tab-button ${activeTab === 'cdsfigs' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('cdsfigs')}
+                >
+                  CDS Figures ({componentDetails.cdsFigs.length})
+                </button>
+              )}
+              
+              {componentDetails.drs && componentDetails.drs.length > 0 && (
+                <button 
+                  className={`tab-button ${activeTab === 'drs' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('drs')}
+                >
+                  Design Rules ({componentDetails.drs.length})
+                </button>
+              )}
             </div>
-          ) : (
-            <div className="no-data-container">
-              <p>No component data found for "{componentName}"</p>
-              <p>Debug info: {JSON.stringify(componentDetails)}</p>
+            
+            <div className="tab-content">
+              {activeTab === 'component' && (
+                <>
+                  <h2>Component Details</h2>
+                  <ComponentTab component={componentDetails.component || componentDetails} />
+                </>
+              )}
+              
+              {activeTab === 'masks' && componentDetails.masks && (
+                <>
+                  <h2>Mask Details</h2>
+                  <MasksTab masks={componentDetails.masks} />
+                </>
+              )}
+              
+              {activeTab === 'electrical' && componentDetails.electricalSpecs && (
+                <>
+                  <h2>Electrical Specifications</h2>
+                  <ElectricalSpecsTab 
+                    specs={componentDetails.electricalSpecs}
+                   
+                  />
+                </>
+              )}
+              
+              {activeTab === 'cdsfigs' && componentDetails.cdsFigs && (
+                <>
+                  <h2>CDS Figures</h2>
+                  <CdsFigsTab figs={componentDetails.cdsFigs} />
+                </>
+              )}
+              
+              {activeTab === 'drs' && componentDetails.drs && (
+                <>
+                  <h2>Design Rules</h2>
+                  <DrsTab drs={componentDetails.drs} />
+                </>
+              )}
             </div>
-          )}
+          </div>
         </>
       )}
     </div>
